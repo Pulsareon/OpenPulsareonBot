@@ -1,0 +1,4 @@
+requests
+psutil
+opencv-python
+numpy

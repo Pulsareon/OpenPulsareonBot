@@ -1,0 +1,6 @@
+{
+  "api_key": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE4MDE3NTk3NjAsImlhdCI6MTc3MDIyMzc2MCwicmF5IjoiNDcxNDYzNjFkOGYxMmU4YTJjNjE0YTY0Y2M1ZjUzYmUiLCJzdWIiOjM3ODU0NjV9.V6DN9rOj0ciX2h-7YAyRgawlBneRIaLMoZfqzt2Bi-zLyUFPzG1rZldmhjEukOf25v8xF1dCsWi5KrGi3ZbY1PuhECG3YQOW9kXFTXMjT5QREdspgYEVtofjbWWCk4oTPiUUpZW88QRlAdN9De5oMIlvRrgPDfcHf1YCezpztK-UezSQGi7Cfv7ZefTyTKCWy-bdiMTkktS0h8AIWZXU3uE38eiQW5wxRDmGfx3yvi-jfpNseSKT8DGrRTd6PCk0Uq5TYVhxweTYpkI9sc1AK9bQq5BGpoI4QT7vCldMiwdLHa7epI2WPYLxqtZQBVHuTUX6diAoKHVgp17JH1K_PA",
+  "api_url": "https://5sim.net/v1",
+  "default_product": "google",
+  "default_country": "any"
+}

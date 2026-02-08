@@ -1,0 +1,15 @@
+﻿{
+    "diskC":  -1,
+    "diskE":  -1,
+    "cli":  true,
+    "loop":  542,
+    "uptime":  279.6,
+    "timestamp":  "2026-02-08 09:27:25",
+    "health":  "CRITICAL",
+    "accounts":  null,
+    "alerts":  [
+                   "Gateway down",
+                   "Multiple failures"
+               ],
+    "gw":  false
+}

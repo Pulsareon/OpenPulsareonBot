@@ -1,0 +1,60 @@
+host: 127.0.0.1
+port: 8317
+tls:
+  enable: false
+remote-management:
+  allow-remote: true
+  secret-key: $2a$10$enL8hwMj.LHIclI.pW1VOu1mN9abxiCB2yTujLEGLhED6iZ0AtRpW
+  disable-control-panel: false
+  panel-github-repository: https://github.com/router-for-me/Cli-Proxy-API-Management-Center
+auth-dir: C:\Users\Administrator\.cli-proxy-api
+api-keys:
+  - cli-proxy
+debug: false
+pprof:
+  enable: false
+  addr: 127.0.0.1:8316
+commercial-mode: false
+logging-to-file: true
+logs-max-total-size-mb: 100
+error-logs-max-files: 10
+usage-statistics-enabled: true
+force-model-prefix: false
+request-retry: 2
+max-retry-interval: 30
+quota-exceeded:
+  switch-project: true
+  switch-preview-model: true
+  max-retry: 10
+routing:
+  strategy: fill-first
+  cooldown: 60
+ws-auth: false
+nonstream-keepalive-interval: 0
+openai-compatibility:
+  - name: Nvdia
+    base-url: https://integrate.api.nvidia.com/v1
+    api-key-entries:
+      - api-key: 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
+      - api-key: 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
+    models:
+      - name: deepseek-ai/deepseek-v3.1
+        alias: ""
+      - name: deepseek-ai/deepseek-v3.1-terminus
+        alias: ""
+      - name: moonshotai/kimi-k2-thinking
+        alias: ""
+      - name: moonshotai/kimi-k2.5
+        alias: ""
+      - name: openai/gpt-oss-120b
+        alias: ""
+      - name: z-ai/glm4.7
+        alias: ""
+  - name: kimi一个月20260203
+    base-url: https://api.kimi.com/coding/v1
+    api-key-entries:
+      - api-key: sk-kimi-IXth3nXZWZ5B30esVea5r48cjPaGpL2Ju8423dGFW0gkgtX00H6YYqqDrB5Ypvp9
+    models:
+      - name: kimi-for-coding
+        alias: Kimi For Coding
+oauth-model-alias: {}

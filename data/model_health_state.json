@@ -1,0 +1,80 @@
+{
+  "last_check": "2026-02-08T06:28:00.787552",
+  "provider_status": {
+    "cli-proxy": {
+      "available": true,
+      "last_check": "2026-02-08T06:27:36.969531",
+      "message": "Status: 200"
+    },
+    "moonshot": {
+      "available": false,
+      "last_check": "2026-02-08T06:27:46.154817",
+      "message": "Status: 401"
+    },
+    "nvidia-1": {
+      "available": true,
+      "last_check": "2026-02-08T06:27:47.878858",
+      "message": "Status: 200"
+    },
+    "nvidia-2": {
+      "available": true,
+      "last_check": "2026-02-08T06:27:49.293104",
+      "message": "Status: 200"
+    }
+  },
+  "model_status": {
+    "cli-proxy/gemini-3-pro-high": {
+      "available": true,
+      "last_check": "2026-02-08T06:27:49.317496",
+      "level": "primary"
+    },
+    "cli-proxy/claude-sonnet-4-5-thinking": {
+      "available": true,
+      "last_check": "2026-02-08T06:27:49.356777",
+      "level": "fallback_1"
+    },
+    "cli-proxy/claude-sonnet-4-5": {
+      "available": true,
+      "last_check": "2026-02-08T06:27:49.380837",
+      "level": "fallback_2"
+    },
+    "cli-proxy/gemini-3-pro-preview": {
+      "available": true,
+      "last_check": "2026-02-08T06:27:49.401271",
+      "level": "fallback_3"
+    },
+    "cli-proxy/gemini-3-flash-preview": {
+      "available": true,
+      "last_check": "2026-02-08T06:27:49.441207",
+      "level": "fallback_4"
+    },
+    "cli-proxy/deepseek-ai/deepseek-v3.1": {
+      "available": true,
+      "last_check": "2026-02-08T06:27:49.467275",
+      "level": "fallback_5"
+    },
+    "cli-proxy/z-ai/glm4.7": {
+      "available": true,
+      "last_check": "2026-02-08T06:27:49.504324",
+      "level": "fallback_6"
+    },
+    "moonshot/kimi-k2-0905-preview": {
+      "available": false,
+      "last_check": "2026-02-08T06:27:57.701279",
+      "level": "fallback_7"
+    },
+    "nvidia-1/deepseek-ai/deepseek-v3": {
+      "available": true,
+      "last_check": "2026-02-08T06:27:59.136881",
+      "level": "fallback_8"
+    },
+    "nvidia-2/deepseek-ai/deepseek-v3": {
+      "available": true,
+      "last_check": "2026-02-08T06:28:00.748332",
+      "level": "fallback_9"
+    }
+  },
+  "active_model": "cli-proxy/gemini-3-pro-high",
+  "failed_models": [],
+  "recovery_attempts": {}
+}

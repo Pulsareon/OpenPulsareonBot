@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-02-05T08:34:50.527723",
+  "before_mb": 25.25,
+  "after_mb": 25.25,
+  "saved_mb": 0.0,
+  "actions": {
+    "logs_removed": 0,
+    "logs_truncated": 0,
+    "captures_removed": 0,
+    "temp_memories_removed": 0
+  }
+}

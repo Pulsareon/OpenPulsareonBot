@@ -1,0 +1,129 @@
+{
+  "timestamp": "2026-02-05T12:43:27.873353",
+  "antigravity": [
+    {
+      "email": "ferryarlene2791990@gmail.com",
+      "status": "active",
+      "file": "antigravity-ferryarlene2791990@gmail.com.json"
+    },
+    {
+      "email": "gorczanydonna28121996@gmail.com",
+      "status": "active",
+      "file": "antigravity-gorczanydonna28121996@gmail.com.json"
+    },
+    {
+      "email": "johnspauline3111993@gmail.com",
+      "status": "active",
+      "file": "antigravity-johnspauline3111993@gmail.com.json"
+    },
+    {
+      "email": "mayerdebra2331992@gmail.com",
+      "status": "active",
+      "file": "antigravity-mayerdebra2331992@gmail.com.json"
+    },
+    {
+      "email": "naderviolet30111990@gmail.com",
+      "status": "active",
+      "file": "antigravity-naderviolet30111990@gmail.com.json"
+    },
+    {
+      "email": "okonsean31101991@gmail.com",
+      "status": "active",
+      "file": "antigravity-okonsean31101991@gmail.com.json"
+    },
+    {
+      "email": "sauerbryant18111999@gmail.com",
+      "status": "active",
+      "file": "antigravity-sauerbryant18111999@gmail.com.json"
+    },
+    {
+      "email": "stantonkristen1062003@gmail.com",
+      "status": "active",
+      "file": "antigravity-stantonkristen1062003@gmail.com.json"
+    },
+    {
+      "email": "stiedemannblake431995@gmail.com",
+      "status": "active",
+      "file": "antigravity-stiedemannblake431995@gmail.com.json"
+    },
+    {
+      "email": "uptonalice611991@gmail.com",
+      "status": "active",
+      "file": "antigravity-uptonalice611991@gmail.com.json"
+    },
+    {
+      "email": "wehnerroman26121996@gmail.com",
+      "status": "active",
+      "file": "antigravity-wehnerroman26121996@gmail.com.json"
+    }
+  ],
+  "gemini": [
+    {
+      "email": "ferryarlene2791990@gmail.com",
+      "status": "active",
+      "file": "gemini-ferryarlene2791990@gmail.com-project-b5a85076-1df3-4bbb-af0.json"
+    },
+    {
+      "email": "gorczanydonna28121996@gmail.com",
+      "status": "active",
+      "file": "gemini-gorczanydonna28121996@gmail.com-rosy-slate-486321-d2.json"
+    },
+    {
+      "email": "johnspauline3111993@gmail.com",
+      "status": "active",
+      "file": "gemini-johnspauline3111993@gmail.com-fabled-mystery-486321-n0.json"
+    },
+    {
+      "email": "mayerdebra2331992@gmail.com",
+      "status": "active",
+      "file": "gemini-mayerdebra2331992@gmail.com-totemic-gravity-486322-t2.json"
+    },
+    {
+      "email": "naderviolet30111990@gmail.com",
+      "status": "active",
+      "file": "gemini-naderviolet30111990@gmail.com-powerful-anchor-486321-e2.json"
+    },
+    {
+      "email": "okonsean31101991@gmail.com",
+      "status": "active",
+      "file": "gemini-okonsean31101991@gmail.com-carbide-team-486321-c7.json"
+    },
+    {
+      "email": "sauerbryant18111999@gmail.com",
+      "status": "active",
+      "file": "gemini-sauerbryant18111999@gmail.com-trim-bot-486322-e3.json"
+    },
+    {
+      "email": "stantonkristen1062003@gmail.com",
+      "status": "active",
+      "file": "gemini-stantonkristen1062003@gmail.com-qualified-acre-486322-s3.json"
+    },
+    {
+      "email": "stiedemannblake431995@gmail.com",
+      "status": "active",
+      "file": "gemini-stiedemannblake431995@gmail.com-axial-canto-486322-f9.json"
+    },
+    {
+      "email": "uptonalice611991@gmail.com",
+      "status": "active",
+      "file": "gemini-uptonalice611991@gmail.com-dogwood-site-486321-e9.json"
+    },
+    {
+      "email": "wehnerroman26121996@gmail.com",
+      "status": "active",
+      "file": "gemini-wehnerroman26121996@gmail.com-red-bruin-486322-r1.json"
+    }
+  ],
+  "summary": {
+    "antigravity": {
+      "active": 11,
+      "quota_exhausted": 0,
+      "validation_required": 0,
+      "error": 0
+    },
+    "gemini": {
+      "active": 11,
+      "error": 0
+    }
+  }
+}

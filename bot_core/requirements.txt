@@ -1,0 +1,12 @@
+# Pulsareon Sensory Dependencies
+edge-tts
+openai-whisper
+sounddevice
+numpy
+scipy
+chardet
+requests
+psutil
+sentence-transformers
+torch
+opencv-python

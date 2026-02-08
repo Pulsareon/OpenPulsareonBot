@@ -1,0 +1,8 @@
+{
+  "id": "task_1770349960",
+  "from": "overmind",
+  "description": "PAUSE - System resources critical",
+  "target_role": "Drone",
+  "created_at": 1770349960.0557,
+  "status": "pending"
+}

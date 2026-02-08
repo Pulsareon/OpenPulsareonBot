@@ -1,0 +1,27 @@
+{
+  "name": "hive-mind",
+  "version": "3.2.0",
+  "type": "module",
+  "description": "Hive Mind Controller",
+  "main": "index.js",
+  "openclaw": {
+    "tools": [
+      {
+        "name": "hive_status",
+        "description": "Report current Hive topology"
+      },
+      {
+        "name": "hive_spawn",
+        "description": "Calculate spawn parameters for a new node",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "role": { "type": "string" },
+            "task": { "type": "string" }
+          },
+          "required": ["role", "task"]
+        }
+      }
+    ]
+  }
+}

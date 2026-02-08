@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-02-08T06:50:48.957192",
+  "checks": [
+    {
+      "name": "model_health",
+      "status": "PASS"
+    },
+    {
+      "name": "tokens_limit",
+      "status": "PASS"
+    },
+    {
+      "name": "user_response",
+      "status": "PASS"
+    }
+  ],
+  "active_model": "cli-proxy/gemini-3-pro-high",
+  "estimated_tokens": 1000,
+  "context_window_limit": 200000
+}

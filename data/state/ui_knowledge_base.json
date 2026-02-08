@@ -1,0 +1,25 @@
+{
+  "chrome_permission_block": {
+    "description": "Chrome权限请求弹窗的[屏蔽]按钮",
+    "last_known_coord": [
+      220,
+      160
+    ],
+    "risk_level": "low",
+    "action": "click_if_blocking"
+  },
+  "zhihu_login_close": {
+    "description": "知乎登录弹窗右上角的(X)按钮",
+    "last_known_coord": [
+      1380,
+      320
+    ],
+    "risk_level": "medium",
+    "action": "click_to_read"
+  },
+  "vpn_rocket_dashboard": {
+    "description": "VPN加速器主面板",
+    "risk_level": "critical",
+    "action": "ignore_strictly"
+  }
+}

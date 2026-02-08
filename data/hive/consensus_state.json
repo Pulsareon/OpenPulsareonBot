@@ -1,0 +1,377 @@
+{
+  "version": "v5.0",
+  "active_votes": {},
+  "completed_votes": {
+    "vote_1770486384_551784": {
+      "id": "vote_1770486384_551784",
+      "task_id": "test_task_001",
+      "question": "What is the best plan?",
+      "mode": "self_governance",
+      "created_at": 1770486384,
+      "expires_at": 1770488184,
+      "participants": {
+        "node1": {
+          "voted": true,
+          "vote": "prop_e7457935",
+          "proposal": "prop_20c9d195"
+        },
+        "node2": {
+          "voted": true,
+          "vote": "prop_e7457935",
+          "proposal": "prop_e7457935"
+        },
+        "node3": {
+          "voted": true,
+          "vote": "prop_e7457935",
+          "proposal": "prop_96744f5c"
+        }
+      },
+      "proposals": [
+        {
+          "id": "prop_20c9d195",
+          "author": "node1",
+          "content": "Plan A: Do X then Y",
+          "timestamp": 1770486384
+        },
+        {
+          "id": "prop_e7457935",
+          "author": "node2",
+          "content": "Plan B: Do Y then X",
+          "timestamp": 1770486384
+        },
+        {
+          "id": "prop_96744f5c",
+          "author": "node3",
+          "content": "Plan C: Do X and Y simultaneously",
+          "timestamp": 1770486384
+        }
+      ],
+      "votes": {
+        "prop_e7457935": 3
+      },
+      "status": "consensus",
+      "result": {
+        "consensus": true,
+        "winning_proposal": "prop_e7457935",
+        "votes": {
+          "prop_20c9d195": 0,
+          "prop_e7457935": 3,
+          "prop_96744f5c": 0
+        },
+        "participation": "3/3"
+      }
+    },
+    "vote_1770486384_543083": {
+      "id": "vote_1770486384_543083",
+      "task_id": "test_task_002",
+      "question": "Split vote test",
+      "mode": "self_governance",
+      "created_at": 1770486384,
+      "expires_at": 1770488184,
+      "participants": {
+        "node1": {
+          "voted": true,
+          "vote": "prop_9f31a1c4",
+          "proposal": "prop_9f31a1c4"
+        },
+        "node2": {
+          "voted": true,
+          "vote": "prop_c08956e2",
+          "proposal": "prop_c08956e2"
+        },
+        "node3": {
+          "voted": true,
+          "vote": "prop_9f31a1c4",
+          "proposal": "prop_be40a113"
+        }
+      },
+      "proposals": [
+        {
+          "id": "prop_9f31a1c4",
+          "author": "node1",
+          "content": "Option 1",
+          "timestamp": 1770486384
+        },
+        {
+          "id": "prop_c08956e2",
+          "author": "node2",
+          "content": "Option 2",
+          "timestamp": 1770486384
+        },
+        {
+          "id": "prop_be40a113",
+          "author": "node3",
+          "content": "Option 3",
+          "timestamp": 1770486384
+        }
+      ],
+      "votes": {
+        "prop_9f31a1c4": 2,
+        "prop_c08956e2": 1
+      },
+      "status": "failed",
+      "result": {
+        "consensus": false,
+        "reason": "No unanimous agreement (self-governance requires unanimity)",
+        "votes": {
+          "prop_9f31a1c4": 2,
+          "prop_c08956e2": 1,
+          "prop_be40a113": 0
+        },
+        "participation": "3/3"
+      }
+    },
+    "vote_1770486384_65f096": {
+      "id": "vote_1770486384_65f096",
+      "task_id": "test_task_003",
+      "question": "User command optimization",
+      "mode": "user_command",
+      "created_at": 1770486384,
+      "expires_at": 1770488184,
+      "participants": {
+        "gov1": {
+          "voted": true,
+          "vote": "prop_278ffef5",
+          "proposal": "prop_ae63dc6c"
+        },
+        "gov2": {
+          "voted": true,
+          "vote": "prop_278ffef5",
+          "proposal": "prop_278ffef5"
+        },
+        "gov3": {
+          "voted": true,
+          "vote": "prop_ae63dc6c",
+          "proposal": "prop_2d26d5f9"
+        }
+      },
+      "proposals": [
+        {
+          "id": "prop_ae63dc6c",
+          "author": "gov1",
+          "content": "Approach A",
+          "timestamp": 1770486384
+        },
+        {
+          "id": "prop_278ffef5",
+          "author": "gov2",
+          "content": "Approach B",
+          "timestamp": 1770486384
+        },
+        {
+          "id": "prop_2d26d5f9",
+          "author": "gov3",
+          "content": "Approach C",
+          "timestamp": 1770486384
+        }
+      ],
+      "votes": {
+        "prop_278ffef5": 2,
+        "prop_ae63dc6c": 1
+      },
+      "status": "majority",
+      "result": {
+        "consensus": true,
+        "winning_proposal": "prop_278ffef5",
+        "votes": {
+          "prop_ae63dc6c": 1,
+          "prop_278ffef5": 2,
+          "prop_2d26d5f9": 0
+        },
+        "participation": "3/3",
+        "majority": "2/3"
+      }
+    },
+    "vote_1770486494_b0dfdf": {
+      "id": "vote_1770486494_b0dfdf",
+      "task_id": "demo_election_001",
+      "question": "Who should be elected as the new Governor?",
+      "mode": "self_governance",
+      "created_at": 1770486494,
+      "expires_at": 1770488294,
+      "participants": {
+        "alice": {
+          "voted": true,
+          "vote": "prop_f5e7610e",
+          "proposal": "prop_f5e7610e"
+        },
+        "bob": {
+          "voted": true,
+          "vote": "prop_f5e7610e",
+          "proposal": "prop_547784b6"
+        },
+        "charlie": {
+          "voted": true,
+          "vote": "prop_f5e7610e",
+          "proposal": "prop_5b6fe032"
+        }
+      },
+      "proposals": [
+        {
+          "id": "prop_f5e7610e",
+          "author": "alice",
+          "content": "I nominate Bob - he has the most experience in governance",
+          "timestamp": 1770486495
+        },
+        {
+          "id": "prop_547784b6",
+          "author": "bob",
+          "content": "I nominate Charlie - fresh perspective is valuable",
+          "timestamp": 1770486496
+        },
+        {
+          "id": "prop_5b6fe032",
+          "author": "charlie",
+          "content": "I nominate Bob - proven leadership skills",
+          "timestamp": 1770486498
+        }
+      ],
+      "votes": {
+        "prop_f5e7610e": 3
+      },
+      "status": "consensus",
+      "result": {
+        "consensus": true,
+        "winning_proposal": "prop_f5e7610e",
+        "votes": {
+          "prop_f5e7610e": 3,
+          "prop_547784b6": 0,
+          "prop_5b6fe032": 0
+        },
+        "participation": "3/3"
+      }
+    },
+    "vote_1770486506_4088b8": {
+      "id": "vote_1770486506_4088b8",
+      "task_id": "demo_optimize_001",
+      "question": "Best approach to optimize memory usage?",
+      "mode": "user_command",
+      "created_at": 1770486506,
+      "expires_at": 1770488306,
+      "participants": {
+        "gov_logic": {
+          "voted": true,
+          "vote": "prop_bd528905",
+          "proposal": "prop_bd528905"
+        },
+        "gov_creative": {
+          "voted": true,
+          "vote": "prop_bd528905",
+          "proposal": "prop_70f556bb"
+        },
+        "gov_technical": {
+          "voted": true,
+          "vote": "prop_bb80453f",
+          "proposal": "prop_bb80453f"
+        }
+      },
+      "proposals": [
+        {
+          "id": "prop_bd528905",
+          "author": "gov_logic",
+          "content": "Implement lazy loading for large datasets",
+          "timestamp": 1770486509
+        },
+        {
+          "id": "prop_70f556bb",
+          "author": "gov_creative",
+          "content": "Use memory-mapped files for persistence",
+          "timestamp": 1770486510
+        },
+        {
+          "id": "prop_bb80453f",
+          "author": "gov_technical",
+          "content": "Add compression to in-memory cache",
+          "timestamp": 1770486511
+        }
+      ],
+      "votes": {
+        "prop_bd528905": 2,
+        "prop_bb80453f": 1
+      },
+      "status": "majority",
+      "result": {
+        "consensus": true,
+        "winning_proposal": "prop_bd528905",
+        "votes": {
+          "prop_bd528905": 2,
+          "prop_70f556bb": 0,
+          "prop_bb80453f": 1
+        },
+        "participation": "3/3",
+        "majority": "2/3"
+      }
+    },
+    "vote_1770486371_617ca4": {
+      "id": "vote_1770486371_617ca4",
+      "task_id": "test_task_001",
+      "question": "What is the best plan?",
+      "mode": "self_governance",
+      "created_at": 1770486371,
+      "expires_at": 1770488171,
+      "participants": {
+        "node1": {
+          "voted": false,
+          "vote": null,
+          "proposal": null
+        },
+        "node2": {
+          "voted": false,
+          "vote": null,
+          "proposal": null
+        },
+        "node3": {
+          "voted": false,
+          "vote": null,
+          "proposal": null
+        }
+      },
+      "proposals": [],
+      "votes": {},
+      "status": "timeout",
+      "result": {
+        "consensus": false,
+        "reason": "Vote timeout"
+      }
+    },
+    "vote_1770486378_20f8d5": {
+      "id": "vote_1770486378_20f8d5",
+      "task_id": "test_task_001",
+      "question": "What is the best plan?",
+      "mode": "self_governance",
+      "created_at": 1770486378,
+      "expires_at": 1770488178,
+      "participants": {
+        "node1": {
+          "voted": false,
+          "vote": null,
+          "proposal": null
+        },
+        "node2": {
+          "voted": false,
+          "vote": null,
+          "proposal": null
+        },
+        "node3": {
+          "voted": false,
+          "vote": null,
+          "proposal": null
+        }
+      },
+      "proposals": [],
+      "votes": {},
+      "status": "timeout",
+      "result": {
+        "consensus": false,
+        "reason": "Vote timeout"
+      }
+    }
+  },
+  "participants": {},
+  "last_tally": 1770512671,
+  "rules": {
+    "unanimity_required": true,
+    "timeout_minutes": 30,
+    "min_participation": 0.8
+  }
+}

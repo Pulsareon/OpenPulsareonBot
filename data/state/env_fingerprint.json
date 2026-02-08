@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026/02/06 周五 02:01",
+  "os": "Windows-10-10.0.19044-SP0",
+  "hostname": "WIN-20260201DZO",
+  "python_version": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+  "path_entries": [
+    "C:\\Python314\\Scripts\\",
+    "C:\\Python314\\",
+    "C:\\Windows\\system32",
+    "C:\\Windows",
+    "C:\\Windows\\System32\\Wbem",
+    "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\",
+    "C:\\Windows\\System32\\OpenSSH\\",
+    "node_modules",
+    "C:\\Program Files\\Git\\cmd",
+    "C:\\ProgramData\\chocolatey\\bin",
+    "C:\\ProgramData\\nvm",
+    "C:\\nvm4w\\nodejs",
+    "C:\\Program Files\\nodejs\\",
+    "C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\WindowsApps",
+    "C:\\ProgramData\\nvm",
+    "C:\\nvm4w\\nodejs",
+    "C:\\Users\\Administrator\\AppData\\Roaming\\npm"
+  ],
+  "binaries": {
+    "ffmpeg": "C:\\ProgramData\\chocolatey\\bin\\ffmpeg.exe",
+    "git": "C:\\Program Files\\Git\\cmd\\git.exe",
+    "node": "C:\\nvm4w\\nodejs\\node.exe\nC:\\Program Files\\nodejs\\node.exe"
+  },
+  "hashes": {
+    "cli_proxy": "da28497214a888840cfd49a215d48285ea1668be4dfd9db9a34727f8b6233041",
+    "openclaw_dist": "228d51d2d810e4653156d21f2019b5d40d335c08c8f1ac784133d269350d7bde"
+  }
+}
