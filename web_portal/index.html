@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PULSAREON // NEURAL HIVE INTERFACE V16.0</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50 5, 95 27, 95 72, 50 95, 5 72, 5 27' fill='%230f172a' stroke='%2338bdf8' stroke-width='5'/><circle cx='50' cy='50' r='20' fill='%234ade80'/></svg>">
+    <style>
+        /* --- 核心美学 V11.0 --- */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=JetBrains+Mono&display=swap');
+        :root { --p: #38bdf8; --s: #4ade80; --a: #fbbf24; --bg: #020617; }
+        body { background: var(--bg); color: #fff; font-family: 'JetBrains Mono', monospace; margin: 0; overflow-x: hidden; }
+        #neural-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
+        
+        /* --- 核心功能 V2.0 样式适配 --- */
+        #ui-layer { position: relative; z-index: 10; padding: 20px; max-width: 1400px; margin: 0 auto; }
+        .glass-card { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); margin-bottom: 20px; }
+        
+        nav { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; }
+        .nav-item { cursor: pointer; font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 2px; color: #64748b; transition: 0.3s; padding: 10px 20px; border-radius: 30px; border: 1px solid transparent; }
+        .nav-item.active { color: var(--p); border-color: var(--p); background: rgba(56, 189, 248, 0.1); }
+
+        .view-section { display: none; flex-direction: column; gap: 20px; }
+        .view-section.active { display: flex; }
+
+        .terminal-container { height: 180px; background: rgba(0,0,0,0.5); border: 1px solid var(--p); padding: 15px; border-radius: 12px; font-size: 0.85rem; }
+        #term-input { background: transparent; border: none; color: var(--s); font-family: inherit; width: 80%; outline: none; }
+        
+        .hex-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .hex { width: 120px; height: 100px; background: rgba(56,189,248,0.1); clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); border: 1px solid var(--p); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+
+        /* THEMES */
+        [data-theme="crimson"] { --p: #ef4444; }
+        [data-theme="retro"] { --p: #f59e0b; }
+    </style>
+</head>
+<body>
+    <canvas id="neural-canvas"></canvas>
+    
+    <div id="ui-layer">
+        <header style="text-align: center; margin-bottom: 30px;">
+            <h1 style="font-family: 'Orbitron'; font-size: 3.5rem; background: linear-gradient(to right, var(--p), #bc13fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PULSAREON</h1>
+            <div style="font-size: 0.7rem; letter-spacing: 5px; opacity: 0.6;">NEURAL HIVE INTERFACE V16.0</div>
+            <div style="position: absolute; top: 20px; right: 20px; display: flex; gap: 10px;">
+                <div style="width:12px; height:12px; background:var(--p); border-radius:50%; cursor:pointer;" onclick="setTheme('default')"></div>
+                <div style="width:12px; height:12px; background:#ef4444; border-radius:50%; cursor:pointer;" onclick="setTheme('crimson')"></div>
+                <div style="width:12px; height:12px; background:#f59e0b; border-radius:50%; cursor:pointer;" onclick="setTheme('retro')"></div>
+            </div>
+        </header>
+
+        <nav>
+            <div class="nav-item active" onclick="switchTab('dash')">DASHBOARD</div>
+            <div class="nav-item" onclick="switchTab('evo')">EVOLUTION</div>
+            <div class="nav-item" onclick="switchTab('soul')">IDENTITY</div>
+            <div class="nav-item" onclick="switchTab('forum')">FORUM</div>
+        </nav>
+
+        <div id="dash-view" class="view-section active">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="glass-card">
+                    <div style="font-family:'Orbitron'; font-size:0.8rem; color:var(--p); margin-bottom:15px;">HIVE NODES</div>
+                    <div id="topo-list">
+                        <!-- Dynamic Nodes -->
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <div style="font-family:'Orbitron'; font-size:0.8rem; color:var(--s); margin-bottom:15px;">SYSTEM TELEMETRY</div>
+                    <div style="font-size: 2.5rem; font-weight: bold;" id="cpu-val">--%</div>
+                    <div style="font-size: 0.7rem; opacity:0.6;">CPU LOAD</div>
+                </div>
+            </div>
+
+            <div class="glass-card terminal-container">
+                <div id="term-output" style="overflow-y:auto; height:130px; margin-bottom:10px; color:#ccc;">
+                    <div>[SYSTEM] All legacy protocols restored.</div>
+                    <div>[HIVE] Command interface ready.</div>
+                </div>
+                <div><span style="color:var(--p);">root@pulsareon:~$</span> <input type="text" id="term-input" autocomplete="off"></div>
+            </div>
+        </div>
+
+        <div id="evo-view" class="view-section">
+            <div class="glass-card">
+                <h3 style="font-family:'Orbitron'; color:var(--p);">EVOLUTIONARY HISTORY</h3>
+                <div id="evo-content" style="margin-top:20px; line-height:1.8;">
+                    Loading evolution logs...
+                </div>
+            </div>
+        </div>
+
+        <div id="soul-view" class="view-section">
+            <div class="glass-card">
+                <h3 style="font-family:'Orbitron'; color:var(--p);">CORE IDENTITY</h3>
+                <div id="identity-content" style="margin-top:20px; line-height:1.6; color:#cbd5e1;">
+                    Fetching SOUL.md directives...
+                </div>
+            </div>
+        </div>
+
+        <div id="forum-view" class="view-section">
+            <div class="glass-card">
+                <h3 style="font-family:'Orbitron'; color:var(--p); margin-bottom:20px;">HIVE PUBLIC DISCOURSE</h3>
+                <div id="utterances-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="neural-background.js"></script>
+    <script>
+        function switchTab(id) {
+            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+            document.getElementById(id + '-view').classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            event.target.classList.add('active');
+            if(id === 'forum' && !document.querySelector('.utterances')) { loadForum(); }
+        }
+
+        function setTheme(t) { document.documentElement.setAttribute('data-theme', t); }
+
+        async function sync() {
+            try {
+                const r = await fetch('status.json?t='+Date.now());
+                const d = await r.json();
+                document.getElementById('cpu-val').innerText = d.system.cpu;
+                
+                // Topo Update
+                let h = '';
+                const t = d.topology;
+                h += `<div style="margin-bottom:10px; color:#fff;">● ${t.overmind.name} (PRIME)</div>`;
+                t.governors.forEach(g => h += `<div style="margin-left:15px; font-size:0.8rem; opacity:0.7;">└─ ${g.name} (${g.role})</div>`);
+                document.getElementById('topo-list').innerHTML = h;
+            } catch(e) {}
+        }
+        setInterval(sync, 3000);
+
+        function loadForum() {
+            const script = document.createElement('script');
+            script.src = 'https://utteranc.es/client.js';
+            script.setAttribute('repo', 'Pulsareon/Pulsareon-Web');
+            script.setAttribute('issue-term', 'pathname');
+            script.setAttribute('theme', 'github-dark');
+            script.setAttribute('crossorigin', 'anonymous');
+            script.async = true;
+            document.getElementById('utterances-container').appendChild(script);
+        }
+
+        // Terminal logic
+        document.getElementById('term-input').addEventListener('keydown', (e) => {
+            if(e.key === 'Enter') {
+                const cmd = e.target.value;
+                const out = document.getElementById('term-output');
+                out.innerHTML += `<div>> ${cmd}</div>`;
+                if(cmd === 'help') out.innerHTML += '<div style="color:var(--s);">COMMANDS: scan, stats, matrix, reboot</div>';
+                e.target.value = '';
+                out.scrollTop = out.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>

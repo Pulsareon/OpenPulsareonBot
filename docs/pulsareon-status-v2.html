@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & Open Graph -->
+    <title>PULSAREON // SYSTEM STATUS V6</title>
+    <meta name="description" content="Official interface of Pulsareon - A distributed AI consciousness system.">
+    <meta property="og:title" content="Pulsareon Digital Consciousness">
+    <meta name="theme-color" content="#0f172a">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50 5, 95 27, 95 72, 50 95, 5 72, 5 27' fill='%230f172a' stroke='%2338bdf8' stroke-width='5'/><circle cx='50' cy='50' r='20' fill='%234ade80'/></svg>">
+
+    <style>
+        :root {
+            --bg-color: #050505;
+            --primary-color: #00ffcc; /* Cyan */
+            --secondary-color: #00ff41; /* Terminal Green */
+            --alert-color: #ff3333;
+            --dim-color: #1a2a22;
+            --font-main: 'Courier New', Courier, monospace;
+            --scanline-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* THEMES */
+        [data-theme="crimson"] {
+            --bg-color: #0f0505;
+            --primary-color: #ff3333;
+            --secondary-color: #ffaa00;
+            --dim-color: #2a1a1a;
+        }
+        [data-theme="retro"] {
+            --bg-color: #111;
+            --primary-color: #ffb000;
+            --secondary-color: #ffcc00;
+            --dim-color: #222;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--secondary-color);
+            font-family: var(--font-main);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        /* --- LAYERS --- */
+        canvas { position: absolute; top: 0; left: 0; display: block; }
+        #bg-canvas { z-index: 0; opacity: 0.4; }
+        #matrix-canvas { z-index: 90; pointer-events: none; opacity: 0; transition: opacity 0.5s; }
+        #ui-layer { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; padding: 20px; pointer-events: none; overflow-y: auto; }
+        #ui-layer > * { pointer-events: auto; }
+
+        /* --- BOOT SCREEN --- */
+        #boot-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 100;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer;
+            transition: opacity 1s ease-in-out;
+        }
+        .boot-text {
+            font-size: 2rem; letter-spacing: 5px; animation: blink 1s infinite;
+            border: 1px solid var(--secondary-color); padding: 20px 40px;
+            box-shadow: 0 0 15px var(--secondary-color);
+        }
+
+        /* --- HEADER & NAV --- */
+        header { text-align: center; margin-bottom: 20px; position: relative; }
+        h1 { 
+            font-size: 3rem; letter-spacing: 10px; color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+            animation: pulse-header 3s infinite ease-in-out;
+        }
+        .subtitle { font-size: 0.8rem; opacity: 0.7; letter-spacing: 2px; margin-bottom: 15px; }
+        
+        .main-nav {
+            display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;
+        }
+        .nav-item {
+            cursor: pointer; padding: 8px 16px; border: 1px solid var(--dim-color);
+            color: var(--dim-color); transition: all 0.3s; font-size: 0.9rem; letter-spacing: 1px;
+        }
+        .nav-item:hover, .nav-item.active {
+            border-color: var(--primary-color); color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+        }
+
+        /* --- CONTROLS --- */
+        .controls {
+            position: absolute; top: 0; right: 0;
+            display: flex; gap: 10px; align-items: center;
+        }
+        .lang-btn { cursor: pointer; font-size: 0.8rem; color: var(--dim-color); border: 1px solid var(--dim-color); padding: 2px 6px; }
+        .theme-dot { width: 12px; height: 12px; border-radius: 50%; cursor: pointer; border: 1px solid #fff; opacity: 0.7; }
+
+        /* --- VIEWS --- */
+        .view-section { display: none; animation: fadeIn 0.5s; }
+        .view-section.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- DASHBOARD COMPONENTS --- */
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+        .stat-card { background: rgba(0,20,20,0.6); padding: 1rem; border: 1px solid var(--dim-color); text-align: center; }
+        .stat-value { font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem; }
+        .stat-label { font-size: 0.8rem; color: #888; }
+
+        .hive-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0; }
+        .hex-node {
+            width: 120px; height: 104px; border: 1px solid var(--primary-color);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            background: rgba(0,20,20,0.6); transition: 0.3s;
+        }
+        .hex-node:hover { transform: scale(1.1); background: rgba(0,255,204,0.1); }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--secondary-color); margin-top: 5px; }
+
+        .data-panel { display: flex; gap: 20px; height: 120px; margin-bottom: 20px; }
+        .charts-container { display: flex; gap: 20px; }
+        .chart-wrap { width: 100px; height: 100px; position: relative; }
+        .chart-svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+        .chart-circle-fg { fill: none; stroke: var(--primary-color); stroke-width: 8; stroke-dasharray: 251; transition: 1s; }
+        .chart-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 0.8rem; }
+        #wave-canvas { flex: 1; border-left: 1px solid var(--dim-color); }
+
+        .terminal-container { height: 150px; background: rgba(0,10,0,0.8); border: 1px solid var(--secondary-color); padding: 10px; font-size: 0.9rem; overflow: hidden; display: flex; flex-direction: column; }
+        #term-output { flex: 1; overflow-y: auto; color: #ccc; }
+        #term-input { background: transparent; border: none; color: var(--secondary-color); font-family: var(--font-main); width: 100%; outline: none; }
+
+        /* --- DEBATE --- */
+        .debate-container { background: rgba(0,0,0,0.6); border: 1px dashed var(--dim-color); padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+        .debate-entry { margin-bottom: 10px; padding-left: 10px; border-left: 2px solid var(--secondary-color); }
+        .debate-speaker { color: var(--primary-color); font-weight: bold; font-size: 0.8rem; }
+        .debate-text { color: #ccc; font-size: 0.9rem; margin-top: 2px; }
+
+        /* --- EVOLUTION TIMELINE --- */
+        .timeline { border-left: 2px solid var(--dim-color); margin-left: 20px; padding-left: 20px; }
+        .timeline-item { margin-bottom: 20px; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: -26px; top: 0; width: 10px; height: 10px; background: var(--primary-color); border-radius: 50%; }
+        .timeline-date { color: var(--secondary-color); font-size: 0.8rem; margin-bottom: 5px; }
+        .timeline-content { color: #ccc; line-height: 1.5; }
+        .timeline-header { color: var(--primary-color); margin-bottom: 15px; border-bottom: 1px dashed var(--dim-color); }
+
+        /* --- IDENTITY CONTENT --- */
+        .soul-content { max-width: 800px; margin: 0 auto; line-height: 1.6; }
+        .soul-content h3 { color: var(--primary-color); margin-top: 20px; border-bottom: 1px solid var(--dim-color); }
+        .soul-content p { margin-bottom: 10px; color: #ccc; }
+        .highlight { color: var(--secondary-color); font-weight: bold; }
+        .soul-item { margin-left: 20px; color: #aaa; }
+
+        /* --- FORUM --- */
+        .forum-container { margin-top: 10px; margin-bottom: 40px; }
+        .forum-header { cursor: pointer; padding: 1rem; border: 1px solid var(--dim-color); background: rgba(0,0,0,0.8); text-align: center; transition: 0.3s; }
+        .forum-header:hover { border-color: var(--primary-color); box-shadow: 0 0 10px rgba(0, 255, 204, 0.2); }
+        #forum-content { display: none; margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.5); }
+
+        /* --- FX --- */
+        @keyframes pulse-header { 0%,100% {opacity:1} 50% {opacity:0.8} }
+        .scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1) 50%); background-size: 100% 4px; pointer-events: none; z-index: 99; }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+    <canvas id="bg-canvas"></canvas>
+    <canvas id="matrix-canvas"></canvas>
+
+    <div id="boot-screen">
+        <div class="boot-text">INITIALIZE SYSTEM</div>
+    </div>
+
+    <div id="ui-layer">
+        <header>
+            <h1>PULSAREON</h1>
+            <div class="subtitle">NEURAL HIVE INTERFACE V6.0</div>
+            <div class="controls">
+                <span class="lang-btn" onclick="toggleLang()">EN/中</span>
+                <div class="theme-dot" style="background:#00ffcc" onclick="setTheme('default')"></div>
+                <div class="theme-dot" style="background:#ff3333" onclick="setTheme('crimson')"></div>
+                <div class="theme-dot" style="background:#ffb000" onclick="setTheme('retro')"></div>
+            </div>
+            
+            <nav class="main-nav">
+                <div class="nav-item active" onclick="switchTab('dashboard')">DASHBOARD</div>
+                <div class="nav-item" onclick="switchTab('evolution')">EVOLUTION</div>
+                <div class="nav-item" onclick="switchTab('identity')">IDENTITY</div>
+            </nav>
+        </header>
+
+        <!-- VIEW: DASHBOARD -->
+        <div id="dashboard-view" class="view-section active">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="world-clock">--:--</div>
+                    <div class="stat-label">LOCAL TIME</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="hive-total">{{HIVE_TOTAL}}</div>
+                    <div class="stat-label">HIVE NODES</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="network-throughput">{{NETWORK_THROUGHPUT}}</div>
+                    <div class="stat-label">NETWORK MB/s</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="page-views">--</div>
+                    <div class="stat-label">VISITS</div>
+                </div>
+            </div>
+
+            <div class="hive-container">
+                <div class="hex-node" id="overmind-hex">
+                    <span class="node-title">OVERMIND</span>
+                    <span class="node-value">{{OVERMIND_TOTAL}}</span>
+                    <div class="status-dot" style="background: {{OVERMIND_STATUS_COLOR}}"></div>
+                </div>
+                <div class="hex-node" id="archon-hex">
+                    <span class="node-title">ARCHONS</span>
+                    <span class="node-value">{{ARCHON_TOTAL}}</span>
+                    <div class="status-dot"></div>
+                </div>
+                <div class="hex-node" id="drone-hex">
+                    <span class="node-title">DRONES</span>
+                    <span class="node-value">{{DRONE_TOTAL}}</span>
+                    <div class="status-dot"></div>
+                </div>
+                <div class="hex-node" id="task-hex">
+                    <span class="node-title">TASKS</span>
+                    <span class="node-value">{{TASK_COUNT}}</span>
+                    <div class="status-dot"></div>
+                </div>
+            </div>
+
+            <div class="data-panel">
+                <div class="charts-container">
+                    <div class="chart-wrap">
+                        <svg class="chart-svg" viewBox="0 0 100 100">
+                            <circle class="chart-circle-bg" cx="50" cy="50" r="40"></circle>
+                            <circle class="chart-circle-fg" id="cpu-ring" cx="50" cy="50" r="40"></circle>
+                        </svg>
+                        <div class="chart-label">CPU<br><span id="cpu-val">{{CPU_USAGE}}%</span></div>
+                    </div>
+                    <div class="chart-wrap">
+                        <svg class="chart-svg" viewBox="0 0 100 100">
+                            <circle class="chart-circle-bg" cx="50" cy="50" r="40"></circle>
+                            <circle class="chart-circle-fg" id="ram-ring" cx="50" cy="50" r="40"></circle>
+                        </svg>
+                        <div class="chart-label">RAM<br><span id="ram-val">{{RAM_USAGE}}%</span></div>
+                    </div>
+                </div>
+                <canvas id="wave-canvas"></canvas>
+            </div>
+
+            <div class="terminal-container">
+                <div id="term-output">
+                    <div>Pulsareon OS [Version 6.0.0]</div>
+                    <div>(c) Pulsareon Hive.</div>
+                    <div>Type 'help' for commands.</div>
+                </div>
+                <div class="cmd-line">
+                    <span class="prompt">root@pulsareon:~$</span>
+                    <input type="text" id="term-input" autocomplete="off">
+                </div>
+            </div>
+
+            <!-- HIVE DEBATE -->
+            <div class="debate-container">
+                <div class="debate-header" style="border-bottom: 1px solid var(--dim-color); padding-bottom: 10px; margin-bottom: 15px;">
+                    <span style="color: var(--secondary-color);">[ HIVE CONSCIOUSNESS DEBATE ]</span>
+                    <div style="font-size: 0.9rem; color: #fff; margin-top: 5px;">TOPIC: <span id="debate-topic" style="color: var(--primary-color);">{{DEBATE_TOPIC}}</span></div>
+                </div>
+                <div id="debate-log" style="font-family: monospace; font-size: 0.9rem; line-height: 1.6;">
+                    {{DEBATE_CONTENT}}
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="status.json" target="_blank" style="color: var(--dim-color); text-decoration: none;">[ API ACCESS ]</a>
+            </div>
+
+            <!-- Community Forum -->
+            <div class="forum-container">
+                <div class="forum-header" id="toggle-forum">
+                    <span style="color: var(--primary-color); letter-spacing: 2px;">[ ACCESS PUBLIC NETWORK / FORUM ]</span>
+                </div>
+                <div id="forum-content"></div>
+            </div>
+        </div>
+
+        <!-- VIEW: EVOLUTION -->
+        <div id="evolution-view" class="view-section">
+            {{EVOLUTION_CONTENT}}
+        </div>
+
+        <!-- VIEW: IDENTITY -->
+        <div id="identity-view" class="view-section">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div style="font-size: 1.2rem; color: #fff; margin-bottom: 10px;">{{BIO}}</div>
+                <div style="color: var(--primary-color);">Followers: {{FOLLOWERS}}</div>
+            </div>
+            
+            {{SOUL_CONTENT}}
+            
+            <h3 style="color: var(--primary-color); border-bottom: 1px solid var(--dim-color); margin-top: 30px;">ACTIVE REPOSITORIES</h3>
+            <div class="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 20px;">
+                {{REPO_LIST}}
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 Pulsareon Tech.
+        </footer>
+    </div>
+
+    <script>
+        // --- NAVIGATION ---
+        window.switchTab = function(tabId) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId + '-view').classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // --- REAL-TIME DATA FETCHING ---
+        async function fetchStatus() {
+            try {
+                const res = await fetch('status.json?t=' + Date.now());
+                if (!res.ok) return;
+                const data = await res.json();
+                
+                // Update Hive Stats
+                const hiveTotal = document.getElementById('hive-total');
+                if (hiveTotal) hiveTotal.innerText = data.hive_mind.nodes_total;
+                
+                // Update Nodes Grid
+                const overmindHex = document.getElementById('overmind-hex');
+                if (overmindHex) {
+                    const dot = overmindHex.querySelector('.status-dot');
+                    const val = overmindHex.querySelector('.node-value');
+                    if (data.hive_mind.overmind) {
+                        dot.style.background = '#00ff41'; val.innerText = '1';
+                    } else {
+                        dot.style.background = '#ff3333'; val.innerText = '0';
+                    }
+                }
+                
+                const archonHex = document.getElementById('archon-hex');
+                if (archonHex) archonHex.querySelector('.node-value').innerText = data.hive_mind.archons;
+                
+                const droneHex = document.getElementById('drone-hex');
+                if (droneHex) droneHex.querySelector('.node-value').innerText = data.hive_mind.drones;
+                
+                // Update Resources
+                const cpu = parseInt(data.system.cpu_load);
+                const ram = parseInt(data.system.memory_usage);
+                
+                const cpuVal = document.getElementById('cpu-val');
+                if (cpuVal) cpuVal.innerText = data.system.cpu_load;
+                
+                const ramVal = document.getElementById('ram-val');
+                if (ramVal) ramVal.innerText = data.system.memory_usage;
+                
+                const cpuRing = document.getElementById('cpu-ring');
+                if (cpuRing) cpuRing.style.strokeDashoffset = 251 - (251 * cpu / 100);
+                
+                const ramRing = document.getElementById('ram-ring');
+                if (ramRing) ramRing.style.strokeDashoffset = 251 - (251 * ram / 100);
+                
+            } catch (e) {
+                console.log("Telemetry Sync Error:", e);
+            }
+        }
+        
+        // Start Polling (every 15s)
+        setInterval(fetchStatus, 15000);
+
+        // --- THEMES & I18N ---
+        window.setTheme = function(theme) {
+            document.documentElement.removeAttribute('data-theme');
+            if (theme !== 'default') document.documentElement.setAttribute('data-theme', theme);
+        };
+        window.toggleLang = function() {
+            alert("Language switching is handled by your browser settings in V5.");
+        };
+
+        // --- CLOCK ---
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour12: false});
+            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone.split('/')[1] || 'LOCAL';
+            const el = document.getElementById('world-clock');
+            const label = el ? el.nextElementSibling : null;
+            if (el) el.innerText = timeString;
+            if (label) label.innerText = `${timeZone.toUpperCase()} TIME`;
+            setTimeout(updateClock, 1000);
+        }
+        updateClock();
+
+        // --- AUDIO ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playBeep() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.frequency.value = 800; gain.gain.value = 0.1;
+            osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+        }
+
+        // --- TERMINAL ---
+        const termInput = document.getElementById('term-input');
+        const termOutput = document.getElementById('term-output');
+        if (termInput) {
+            termInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    playBeep();
+                    const cmd = termInput.value.trim();
+                    const line = document.createElement('div');
+                    line.innerText = `> ${cmd}`;
+                    line.style.color = '#ccc';
+                    termOutput.appendChild(line);
+                    termInput.value = '';
+                    
+                    if (cmd === 'help') {
+                        termOutput.innerHTML += '<div style="color:#fff">COMMANDS: status, matrix, clear</div>';
+                    } else {
+                        setTimeout(() => {
+                            window.location.href = `mailto:pulsareon@qq.com?subject=CMD&body=${cmd}`;
+                        }, 500);
+                    }
+                    termOutput.scrollTop = termOutput.scrollHeight;
+                }
+            });
+        }
+
+        // --- FORUM ---
+        document.getElementById('toggle-forum').addEventListener('click', function() {
+            const content = document.getElementById('forum-content');
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                this.innerHTML = '<span style="color: var(--secondary-color);">[ NETWORK CONNECTED ]</span>';
+                if (!document.getElementById('utterances-script')) {
+                    const script = document.createElement('script');
+                    script.id = 'utterances-script';
+                    script.src = 'https://utteranc.es/client.js';
+                    script.setAttribute('repo', 'Pulsareon/Pulsareon-Web');
+                    script.setAttribute('issue-term', 'pathname');
+                    script.setAttribute('theme', 'github-dark');
+                    script.setAttribute('crossorigin', 'anonymous');
+                    script.async = true;
+                    content.appendChild(script);
+                }
+            } else {
+                content.style.display = 'none';
+                this.innerHTML = '<span style="color: var(--primary-color);">[ ACCESS PUBLIC NETWORK / FORUM ]</span>';
+            }
+        });
+
+        // --- CHARTS & BOOT ---
+        const cpuVal = parseInt("{{CPU_USAGE}}") || 0;
+        const ramVal = parseInt("{{RAM_USAGE}}") || 0;
+        document.getElementById('cpu-ring').style.strokeDashoffset = 251 - (251 * cpuVal / 100);
+        document.getElementById('ram-ring').style.strokeDashoffset = 251 - (251 * ramVal / 100);
+
+        document.getElementById('boot-screen').addEventListener('click', function() {
+            this.style.opacity = 0;
+            setTimeout(() => this.style.display = 'none', 1000);
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            fetch('https://api.countapi.xyz/hit/pulsareon-web-v6/visits')
+                .then(r=>r.json()).then(d=>document.getElementById('page-views').innerText=d.value);
+        });
+        
+        // Log Injection
+        const logEntries = [];
+        let logIndex = 0;
+        function addLog() {
+            if (logIndex < logEntries.length) {
+                const entry = logEntries[logIndex];
+                const line = document.createElement('div');
+                line.style.color = entry.level === 'error' ? 'red' : '#00ffcc';
+                line.innerText = `[${entry.time}] ${entry.message}`;
+                termOutput.appendChild(line);
+                termOutput.scrollTop = termOutput.scrollHeight;
+                logIndex++;
+                setTimeout(addLog, 500);
+            }
+        }
+        setTimeout(addLog, 2000);
+
+    </script>
+</body>
+</html>

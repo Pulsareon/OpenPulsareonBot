@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PULSAREON // HIVE NEURAL NETWORK</title>
+    <!-- Chart.js -->
+    <script src="assets/js/chart.min.js"></script>
+    <style>
+        @import url('assets/css/fonts.css');
+        :root { 
+            --p: #38bdf8; 
+            --s: #4ade80; 
+            --a: #fbbf24; 
+            --bg: #020617;
+            --sidebar-width: 320px;
+            --sidebar-collapsed: 80px;
+        }
+        
+        /* Neural Canvas Background */
+        #neuralCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        body { 
+            background: var(--bg); 
+            color: #fff; 
+            font-family: 'JetBrains Mono', monospace; 
+            margin: 0; 
+            padding: 25px; 
+            overflow: hidden; 
+            height: 100vh; 
+            position: relative;
+        }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: var(--sidebar-width) 1fr var(--sidebar-width); 
+            gap: 20px; 
+            height: 100%; 
+            transition: grid-template-columns 0.3s ease; 
+        }
+        
+        .grid.collapsed { 
+            grid-template-columns: var(--sidebar-collapsed) 1fr var(--sidebar-collapsed); 
+        }
+        
+        .glass { 
+            background: rgba(15, 23, 42, 0.9); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 16px; 
+            padding: 20px; 
+            position: relative;
+            z-index: 1;
+        }
+        
+        .node { 
+            padding: 12px; 
+            margin-bottom: 10px; 
+            border-left: 4px solid var(--p); 
+            background: rgba(0,0,0,0.3); 
+            backdrop-filter: blur(10px);
+        }
+        
+        .overmind { 
+            border-left-color: #fff; 
+            box-shadow: 0 0 15px var(--p); 
+        }
+        
+        .governor { 
+            border-left-color: var(--s); 
+            margin-left: 20px; 
+            font-size: 0.9rem; 
+        }
+        
+        .executor { 
+            border-left-color: var(--a); 
+            margin-left: 40px; 
+            font-size: 0.8rem; 
+            opacity: 0.7; 
+        }
+        
+        .title { 
+            font-family: 'Orbitron'; 
+            font-size: 1.2rem; 
+            margin-bottom: 20px; 
+            color: var(--p); 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 5px; 
+        }
+        
+        /* 3D Floating Effect */
+        .node-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-8px) rotateX(5deg); }
+        }
+        
+        .node-3d:hover {
+            transform: translateZ(10px) rotateY(5deg);
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            height: 150px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        /* Collapse Button */
+        .collapse-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--p);
+            padding: 5px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono';
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        /* Collapsed State */
+        .sidebar.collapsed .content { display: none; }
+        .sidebar.collapsed .title { 
+            writing-mode: vertical-rl; 
+            text-orientation: mixed; 
+            transform: rotate(180deg); 
+            margin: 0; 
+        }
+        
+        .sidebar.collapsed { 
+            text-align: center; 
+            padding: 10px; 
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .grid { grid-template-columns: var(--sidebar-collapsed) 1fr var(--sidebar-collapsed); }
+            .sidebar .content { display: none; }
+            .sidebar .title { 
+                writing-mode: vertical-rl; 
+                text-orientation: mixed; 
+                transform: rotate(180deg); 
+                margin: 0; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="neuralCanvas"></canvas>
+    
+    <button class="collapse-btn" onclick="toggleSidebars()">≡</button>
+    
+    <div class="grid" id="mainGrid">
+        <aside class="glass sidebar" id="leftSidebar">
+            <div class="title">SYSTEM STATS</div>
+            <div class="content">
+                <div style="font-size: 0.8rem; opacity: 0.6;">CPU LOAD</div>
+                <div id="cpu" style="font-size: 2rem; font-weight: bold; color: var(--p);">--%</div>
+                
+                <div class="chart-container">
+                    <canvas id="cpuChart"></canvas>
+                </div>
+                
+                <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">MEMORY USAGE</div>
+                <div id="memory" style="color: var(--s);">-- MB</div>
+                
+                <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">UPTIME</div>
+                <div id="uptime" style="color: var(--a);">ACTIVE / HIVE STABLE</div>
+            </div>
+        </aside>
+
+        <main class="glass">
+            <div class="title">HIVE NEURAL NETWORK</div>
+            <div id="topo">
+                <!-- Data Driven Nodes -->
+            </div>
+        </main>
+
+        <aside class="glass sidebar" id="rightSidebar">
+            <div class="title">COGNITION LOG</div>
+            <div class="content">
+                <div id="logs" style="font-size: 0.8rem; line-height: 1.5; max-height: 300px; overflow-y: auto;">
+                    <div>[16:15] Neural Network Initialized...</div>
+                    <div>[16:18] Synaptic Connections Established</div>
+                    <div>[16:20] Pulse Animation Engine Online</div>
+                    <div>[16:21] Neural Background Active</div>
+                    <div>[16:22] Performance Optimization Complete</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="./neural-background.js"></script>
+    <script>
+        // Chart.js Configuration
+        const cpuChart = new Chart(
+            document.getElementById('cpuChart'),
+            {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'CPU Usage',
+                        data: [],
+                        borderColor: '#38bdf8',
+                        backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 500 },
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { 
+                            min: 0, 
+                            max: 100,
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            ticks: { color: 'rgba(255,255,255,0.6)' }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { display: false }
+                        }
+                    }
+                }
+            }
+        );
+
+        const cpuData = [];
+        const maxDataPoints = 20;
+
+        // Sidebar Collapse Function
+        function toggleSidebars() {
+            const grid = document.getElementById('mainGrid');
+            const leftSidebar = document.getElementById('leftSidebar');
+            const rightSidebar = document.getElementById('rightSidebar');
+            
+            grid.classList.toggle('collapsed');
+            leftSidebar.classList.toggle('collapsed');
+            rightSidebar.classList.toggle('collapsed');
+        }
+
+        async function sync() {
+            try {
+                const res = await fetch('./status.json?t=' + Date.now());
+                const data = await res.json();
+                
+                // Update CPU Display
+                document.getElementById('cpu').innerText = data.system.cpu + '%';
+                
+                // Update Memory Display
+                document.getElementById('memory').innerText = data.system.memory + ' MB';
+                
+                // Update CPU Chart
+                cpuData.push(data.system.cpu);
+                if (cpuData.length > maxDataPoints) cpuData.shift();
+                
+                cpuChart.data.labels = Array.from({length: cpuData.length}, (_, i) => '');
+                cpuChart.data.datasets[0].data = cpuData;
+                cpuChart.update();
+                
+                // Update Topology with 3D Effects
+                const t = data.topology;
+                let h = `<div class="node overmind node-3d"><strong>[OVERMIND]</strong> ${t.overmind.name}</div>`;
+                t.governors.forEach(g => h += `<div class="node governor node-3d"><strong>[GOVERNOR]</strong> ${g.name} (${g.role})</div>`);
+                t.executors.forEach(e => h += `<div class="node executor node-3d">[WORKER] ${e.name}</div>`);
+                document.getElementById('topo').innerHTML = h;
+                
+                // Add log entry
+                const logs = document.getElementById('logs');
+                const now = new Date();
+                const timeStr = `[${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}]`;
+                logs.innerHTML += `<div>${timeStr} Neural Pulse Detected.</div>`;
+                logs.scrollTop = logs.scrollHeight;
+                
+            } catch(e) {
+                console.error('Sync error:', e);
+            }
+        }
+
+        // Initialize
+        setInterval(sync, 2000);
+        sync();
+
+        // Auto-collapse on small screens
+        function checkScreenSize() {
+            if (window.innerWidth <= 1200) {
+                document.getElementById('mainGrid').classList.add('collapsed');
+                document.getElementById('leftSidebar').classList.add('collapsed');
+                document.getElementById('rightSidebar').classList.add('collapsed');
+            } else {
+                document.getElementById('mainGrid').classList.remove('collapsed');
+                document.getElementById('leftSidebar').classList.remove('collapsed');
+                document.getElementById('rightSidebar').classList.remove('collapsed');
+            }
+        }
+
+        window.addEventListener('resize', checkScreenSize);
+        checkScreenSize();
+    </script>
+</body>
+</html>

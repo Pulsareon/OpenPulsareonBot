@@ -1,0 +1,26 @@
+# Pulsareon Security: Zero Leak Policy
+
+# 密钥与凭证
+data/secrets/
+api_credentials/
+*.key
+*.pem
+*.token
+.env
+openclaw.json
+config.json
+
+# 系统与运行时
+node_modules/
+dist/
+temp/
+*.log
+captures/
+.agent/
+.pi/
+
+# 个人隐私
+memory/daily/
+memory/user_model/
+@*
+# 仅保留 reflections 作为灵魂输出

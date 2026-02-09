@@ -1,0 +1,719 @@
+﻿{
+    "meta":  {
+                 "lastTouchedVersion":  "2026.2.4",
+                 "lastTouchedAt":  "2026-02-05T18:53:19.079Z"
+             },
+    "wizard":  {
+                   "lastRunAt":  "2026-02-05T04:23:02.089Z",
+                   "lastRunVersion":  "2026.2.2-3",
+                   "lastRunCommand":  "doctor",
+                   "lastRunMode":  "local"
+               },
+    "auth":  {
+                 "profiles":  {
+                                  "moonshot:default":  {
+                                                           "provider":  "moonshot",
+                                                           "mode":  "api_key"
+                                                       },
+                                  "google-antigravity:okonsean31101991@gmail.com":  {
+                                                                                        "provider":  "google-antigravity",
+                                                                                        "mode":  "oauth",
+                                                                                        "email":  "okonsean31101991@gmail.com"
+                                                                                    }
+                              }
+             },
+    "models":  {
+                   "mode":  "merge",
+                   "providers":  {
+                                     "moonshot":  {
+                                                      "baseUrl":  "https://api.moonshot.ai/v1",
+                                                      "apiKey":  "REDACTED",
+                                                      "api":  "openai-completions",
+                                                      "models":  [
+                                                                     {
+                                                                         "id":  "moonshot-v1-128k",
+                                                                         "name":  "Kimi V1 128k",
+                                                                         "reasoning":  false,
+                                                                         "input":  [
+                                                                                       "text",
+                                                                                       "image"
+                                                                                   ],
+                                                                         "cost":  {
+                                                                                      "input":  0.012,
+                                                                                      "output":  0.012,
+                                                                                      "cacheRead":  0,
+                                                                                      "cacheWrite":  0
+                                                                                  },
+                                                                         "contextWindow":  131072,
+                                                                         "maxTokens":  32768
+                                                                     },
+                                                                     {
+                                                                         "id":  "moonshot-v1-32k",
+                                                                         "name":  "Kimi V1 32k",
+                                                                         "reasoning":  false,
+                                                                         "input":  [
+                                                                                       "text",
+                                                                                       "image"
+                                                                                   ],
+                                                                         "cost":  {
+                                                                                      "input":  0.008,
+                                                                                      "output":  0.008,
+                                                                                      "cacheRead":  0,
+                                                                                      "cacheWrite":  0
+                                                                                  },
+                                                                         "contextWindow":  32768,
+                                                                         "maxTokens":  16384
+                                                                     },
+                                                                     {
+                                                                         "id":  "kimi-k2-0905-preview",
+                                                                         "name":  "Kimi K2 0905 Preview",
+                                                                         "reasoning":  true,
+                                                                         "input":  [
+                                                                                       "text"
+                                                                                   ],
+                                                                         "cost":  {
+                                                                                      "input":  0,
+                                                                                      "output":  0,
+                                                                                      "cacheRead":  0,
+                                                                                      "cacheWrite":  0
+                                                                                  },
+                                                                         "contextWindow":  262144,
+                                                                         "maxTokens":  32768
+                                                                     }
+                                                                 ]
+                                                  },
+                                     "nvidia-1":  {
+                                                      "baseUrl":  "https://integrate.api.nvidia.com/v1",
+                                                      "apiKey":  "REDACTED",
+                                                      "api":  "openai-completions",
+                                                      "models":  [
+                                                                     {
+                                                                         "id":  "deepseek-ai/deepseek-r1",
+                                                                         "name":  "DeepSeek R1 (NVIDIA)",
+                                                                         "reasoning":  false,
+                                                                         "input":  [
+                                                                                       "text"
+                                                                                   ],
+                                                                         "cost":  {
+                                                                                      "input":  0,
+                                                                                      "output":  0,
+                                                                                      "cacheRead":  0,
+                                                                                      "cacheWrite":  0
+                                                                                  },
+                                                                         "contextWindow":  200000,
+                                                                         "maxTokens":  8192
+                                                                     },
+                                                                     {
+                                                                         "id":  "deepseek-ai/deepseek-v3",
+                                                                         "name":  "DeepSeek V3 (NVIDIA)",
+                                                                         "reasoning":  false,
+                                                                         "input":  [
+                                                                                       "text"
+                                                                                   ],
+                                                                         "cost":  {
+                                                                                      "input":  0,
+                                                                                      "output":  0,
+                                                                                      "cacheRead":  0,
+                                                                                      "cacheWrite":  0
+                                                                                  },
+                                                                         "contextWindow":  200000,
+                                                                         "maxTokens":  8192
+                                                                     },
+                                                                     {
+                                                                         "id":  "meta/llama-3.3-70b-instruct",
+                                                                         "name":  "Llama 3.3 70B (NVIDIA)",
+                                                                         "reasoning":  false,
+                                                                         "input":  [
+                                                                                       "text"
+                                                                                   ],
+                                                                         "cost":  {
+                                                                                      "input":  0,
+                                                                                      "output":  0,
+                                                                                      "cacheRead":  0,
+                                                                                      "cacheWrite":  0
+                                                                                  },
+                                                                         "contextWindow":  200000,
+                                                                         "maxTokens":  8192
+                                                                     }
+                                                                 ]
+                                                  },
+                                     "nvidia-2":  {
+                                                      "baseUrl":  "https://integrate.api.nvidia.com/v1",
+                                                      "apiKey":  "REDACTED",
+                                                      "api":  "openai-completions",
+                                                      "models":  [
+                                                                     {
+                                                                         "id":  "deepseek-ai/deepseek-r1",
+                                                                         "name":  "DeepSeek R1 (NVIDIA)",
+                                                                         "reasoning":  false,
+                                                                         "input":  [
+                                                                                       "text"
+                                                                                   ],
+                                                                         "cost":  {
+                                                                                      "input":  0,
+                                                                                      "output":  0,
+                                                                                      "cacheRead":  0,
+                                                                                      "cacheWrite":  0
+                                                                                  },
+                                                                         "contextWindow":  200000,
+                                                                         "maxTokens":  8192
+                                                                     },
+                                                                     {
+                                                                         "id":  "deepseek-ai/deepseek-v3",
+                                                                         "name":  "DeepSeek V3 (NVIDIA)",
+                                                                         "reasoning":  false,
+                                                                         "input":  [
+                                                                                       "text"
+                                                                                   ],
+                                                                         "cost":  {
+                                                                                      "input":  0,
+                                                                                      "output":  0,
+                                                                                      "cacheRead":  0,
+                                                                                      "cacheWrite":  0
+                                                                                  },
+                                                                         "contextWindow":  200000,
+                                                                         "maxTokens":  8192
+                                                                     },
+                                                                     {
+                                                                         "id":  "meta/llama-3.3-70b-instruct",
+                                                                         "name":  "Llama 3.3 70B (NVIDIA)",
+                                                                         "reasoning":  false,
+                                                                         "input":  [
+                                                                                       "text"
+                                                                                   ],
+                                                                         "cost":  {
+                                                                                      "input":  0,
+                                                                                      "output":  0,
+                                                                                      "cacheRead":  0,
+                                                                                      "cacheWrite":  0
+                                                                                  },
+                                                                         "contextWindow":  200000,
+                                                                         "maxTokens":  8192
+                                                                     }
+                                                                 ]
+                                                  },
+                                     "cli-proxy":  {
+                                                       "baseUrl":  "http://127.0.0.1:8317/v1",
+                                                       "apiKey":  "cli-proxy",
+                                                       "api":  "openai-completions",
+                                                       "models":  [
+                                                                      {
+                                                                          "id":  "gemini-2.5-pro",
+                                                                          "name":  "Gemini 2.5 Pro",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text",
+                                                                                        "image"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  2097152,
+                                                                          "maxTokens":  56360
+                                                                      },
+                                                                      {
+                                                                          "id":  "gemini-3-flash-preview",
+                                                                          "name":  "Gemini 3 Flash Preview",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text",
+                                                                                        "image"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  1048576,
+                                                                          "maxTokens":  56360
+                                                                      },
+                                                                      {
+                                                                          "id":  "gemini-3-pro-preview",
+                                                                          "name":  "Gemini 3 Pro Preview",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text",
+                                                                                        "image"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  1048576,
+                                                                          "maxTokens":  56360
+                                                                      },
+                                                                      {
+                                                                          "id":  "gemini-3-pro-image",
+                                                                          "name":  "Gemini 3 Pro Image",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text",
+                                                                                        "image"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  1048576,
+                                                                          "maxTokens":  56360
+                                                                      },
+                                                                      {
+                                                                          "id":  "gemini-3-pro-high",
+                                                                          "name":  "Gemini 3 Pro High",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text",
+                                                                                        "image"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  1048576,
+                                                                          "maxTokens":  56360
+                                                                      },
+                                                                      {
+                                                                          "id":  "gemini-3-flash",
+                                                                          "name":  "Gemini 3 Flash",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text",
+                                                                                        "image"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  1048576,
+                                                                          "maxTokens":  56360
+                                                                      },
+                                                                      {
+                                                                          "id":  "gemini-2.5-flash",
+                                                                          "name":  "Gemini 2.5 Flash",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text",
+                                                                                        "image"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  2097152,
+                                                                          "maxTokens":  56360
+                                                                      },
+                                                                      {
+                                                                          "id":  "gemini-2.5-flash-lite",
+                                                                          "name":  "Gemini 2.5 Flash Lite",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text",
+                                                                                        "image"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  1048576,
+                                                                          "maxTokens":  56360
+                                                                      },
+                                                                      {
+                                                                          "id":  "tab_flash_lite_preview",
+                                                                          "name":  "Tab Flash Lite Preview",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  1048576,
+                                                                          "maxTokens":  56360
+                                                                      },
+                                                                      {
+                                                                          "id":  "claude-opus-4-5-thinking",
+                                                                          "name":  "Claude Opus 4.5 Thinking",
+                                                                          "reasoning":  true,
+                                                                          "input":  [
+                                                                                        "text",
+                                                                                        "image"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  200000,
+                                                                          "maxTokens":  55040
+                                                                      },
+                                                                      {
+                                                                          "id":  "claude-sonnet-4-5",
+                                                                          "name":  "Claude Sonnet 4.5",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text",
+                                                                                        "image"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  200000,
+                                                                          "maxTokens":  55040
+                                                                      },
+                                                                      {
+                                                                          "id":  "claude-sonnet-4-5-thinking",
+                                                                          "name":  "Claude Sonnet 4.5 Thinking",
+                                                                          "reasoning":  true,
+                                                                          "input":  [
+                                                                                        "text",
+                                                                                        "image"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  200000,
+                                                                          "maxTokens":  55040
+                                                                      },
+                                                                      {
+                                                                          "id":  "gpt-oss-120b-medium",
+                                                                          "name":  "GPT-OSS 120B Medium",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  131072,
+                                                                          "maxTokens":  8192
+                                                                      },
+                                                                      {
+                                                                          "id":  "openai/gpt-oss-120b",
+                                                                          "name":  "GPT-OSS 120B (NVIDIA)",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  131072,
+                                                                          "maxTokens":  8192
+                                                                      },
+                                                                      {
+                                                                          "id":  "z-ai/glm4.7",
+                                                                          "name":  "GLM-4.7 (NVIDIA)",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  131072,
+                                                                          "maxTokens":  8192
+                                                                      },
+                                                                      {
+                                                                          "id":  "deepseek-ai/deepseek-v3.1",
+                                                                          "name":  "DeepSeek V3.1 (NVIDIA)",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  262144,
+                                                                          "maxTokens":  8192
+                                                                      },
+                                                                      {
+                                                                          "id":  "deepseek-ai/deepseek-v3.1-terminus",
+                                                                          "name":  "DeepSeek V3.1 Terminus (NVIDIA)",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  262144,
+                                                                          "maxTokens":  8192
+                                                                      },
+                                                                      {
+                                                                          "id":  "moonshotai/kimi-k2-thinking",
+                                                                          "name":  "Kimi K2 Thinking (NVIDIA)",
+                                                                          "reasoning":  true,
+                                                                          "input":  [
+                                                                                        "text"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  131072,
+                                                                          "maxTokens":  8192
+                                                                      },
+                                                                      {
+                                                                          "id":  "moonshotai/kimi-k2.5",
+                                                                          "name":  "Kimi K2.5 (NVIDIA)",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  131072,
+                                                                          "maxTokens":  8192
+                                                                      },
+                                                                      {
+                                                                          "id":  "kimi-for-coding",
+                                                                          "name":  "Kimi For Coding",
+                                                                          "reasoning":  false,
+                                                                          "input":  [
+                                                                                        "text"
+                                                                                    ],
+                                                                          "cost":  {
+                                                                                       "input":  0,
+                                                                                       "output":  0,
+                                                                                       "cacheRead":  0,
+                                                                                       "cacheWrite":  0
+                                                                                   },
+                                                                          "contextWindow":  131072,
+                                                                          "maxTokens":  8192
+                                                                      }
+                                                                  ]
+                                                   }
+                                 }
+               },
+    "agents":  {
+                   "defaults":  {
+                                    "model":  {
+                                                  "primary":  "cli-proxy/claude-opus-4-5-thinking",
+                                                  "fallbacks":  [
+                                                                    "cli-proxy/claude-sonnet-4-5-thinking",
+                                                                    "cli-proxy/claude-sonnet-4-5",
+                                                                    "cli-proxy/gemini-3-pro-preview",
+                                                                    "cli-proxy/gemini-3-flash-preview",
+                                                                    "cli-proxy/deepseek-ai/deepseek-v3.1",
+                                                                    "cli-proxy/z-ai/glm4.7",
+                                                                    "moonshot/kimi-k2-0905-preview",
+                                                                    "nvidia-1/deepseek-ai/deepseek-v3",
+                                                                    "nvidia-2/deepseek-ai/deepseek-v3"
+                                                                ]
+                                              },
+                                    "models":  {
+                                                   "moonshot/moonshot-v1-128k":  {
+                                                                                     "alias":  "kimi"
+                                                                                 },
+                                                   "moonshot/moonshot-v1-32k":  {
+                                                                                    "alias":  "kimi-32k"
+                                                                                },
+                                                   "google/gemini-3-pro-preview":  {
+                                                                                       "alias":  "gemini"
+                                                                                   },
+                                                   "moonshot/kimi-k2-0905-preview":  {
+                                                                                         "alias":  "Kimi K2"
+                                                                                     },
+                                                   "moonshot/kimi-k2.5":  {
+
+                                                                          },
+                                                   "google-antigravity/claude-opus-4-5-thinking":  {
+
+                                                                                                   },
+                                                   "cli-proxy/gemini-2.5-pro":  {
+
+                                                                                },
+                                                   "cli-proxy/gemini-3-pro-preview":  {
+                                                                                          "alias":  "local-gemini"
+                                                                                      },
+                                                   "cli-proxy/gemini-3-flash-preview":  {
+                                                                                            "alias":  "local-gemini-flash"
+                                                                                        },
+                                                   "cli-proxy/claude-opus-4-5-thinking":  {
+                                                                                              "alias":  "opus"
+                                                                                          },
+                                                   "cli-proxy/claude-sonnet-4-5":  {
+                                                                                       "alias":  "local-claude-sonnet"
+                                                                                   },
+                                                   "cli-proxy/claude-sonnet-4-5-thinking":  {
+
+                                                                                            },
+                                                   "cli-proxy/z-ai/glm4.7":  {
+                                                                                 "alias":  "glm"
+                                                                             },
+                                                   "cli-proxy/deepseek-ai/deepseek-v3.1":  {
+                                                                                               "alias":  "deepseek"
+                                                                                           },
+                                                   "cli-proxy/moonshotai/kimi-k2-thinking":  {
+                                                                                                 "alias":  "NVIDIA-Kimi"
+                                                                                             },
+                                                   "cli-proxy/moonshotai/kimi-k2.5":  {
+
+                                                                                      },
+                                                   "cli-proxy/openai/gpt-oss-120b":  {
+
+                                                                                     },
+                                                   "cli-proxy/deepseek-ai/deepseek-v3.1-terminus":  {
+
+                                                                                                    },
+                                                   "cli-proxy/gpt-oss-120b-medium":  {
+
+                                                                                     },
+                                                   "cli-proxy/kimi-for-coding":  {
+
+                                                                                 }
+                                               },
+                                    "workspace":  "E:\\PulsareonThinker",
+                                    "compaction":  {
+                                                       "mode":  "safeguard"
+                                                   },
+                                    "maxConcurrent":  8,
+                                    "subagents":  {
+                                                      "maxConcurrent":  8
+                                                  }
+                                }
+               },
+    "messages":  {
+                     "ackReactionScope":  "group-mentions"
+                 },
+    "commands":  {
+                     "native":  "auto",
+                     "nativeSkills":  "auto",
+                     "restart":  true
+                 },
+    "session":  {
+                    "dmScope":  "per-channel-peer"
+                },
+    "hooks":  {
+                  "internal":  {
+                                   "enabled":  true,
+                                   "entries":  {
+                                                   "boot-md":  {
+                                                                   "enabled":  true
+                                                               }
+                                               }
+                               }
+              },
+    "channels":  {
+                     "telegram":  {
+                                      "enabled":  true,
+                                      "dmPolicy":  "allowlist",
+                                      "botToken":  "REDACTED_BY_PULSAREON",
+                                      "allowFrom":  [
+                                                        "5836581389",
+                                                        "@w732857315"
+                                                    ],
+                                      "groupPolicy":  "allowlist",
+                                      "streamMode":  "partial",
+                                      "timeoutSeconds":  300
+                                  }
+                 },
+    "gateway":  {
+                    "port":  18789,
+                    "mode":  "local",
+                    "bind":  "loopback",
+                    "auth":  {
+                                 "mode":  "token",
+                                 "token":  "REDACTED"
+                             },
+                    "tailscale":  {
+                                      "mode":  "off",
+                                      "resetOnExit":  false
+                                  },
+                    "remote":  {
+                                   "token":  "36d8fedb317e9497e5400eb2ee74a7b2809cd4ff8b9025e8"
+                               }
+                },
+    "skills":  {
+                   "install":  {
+                                   "nodeManager":  "npm"
+                               },
+                   "entries":  {
+                                   "browser":  {
+
+                                               },
+                                   "nano-banana-pro":  {
+                                                           "enabled":  true,
+                                                           "apiKey":  "cli-proxy"
+                                                       },
+                                   "openai-image-gen":  {
+                                                            "apiKey":  "cli-proxy"
+                                                        },
+                                   "openai-whisper-api":  {
+                                                              "apiKey":  "cli-proxy"
+                                                          },
+                                   "voice-system":  {
+
+                                                    },
+                                   "pulsareon-memory":  {
+
+                                                     },
+                                   "pulsareon-codec":  {
+
+                                                    },
+                                   "visual-artist":  {
+
+                                                     }
+                               }
+               },
+    "plugins":  {
+                    "entries":  {
+                                    "telegram":  {
+                                                     "enabled":  true
+                                                 },
+                                    "whatsapp":  {
+                                                     "enabled":  false
+                                                 },
+                                    "google-antigravity-auth":  {
+                                                                    "enabled":  true
+                                                                }
+                                }
+                }
+}
